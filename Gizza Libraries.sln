@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gizza.Data", "Gizza.Data\Gizza.Data.csproj", "{3DD8C544-7FBC-4BB7-80B4-9BCD61273965}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gizza.Extensions", "Gizza.Extensions\Gizza.Extensions.csproj", "{1EE857E5-BE2D-448F-84DF-32318E364B5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DD8C544-7FBC-4BB7-80B4-9BCD61273965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DD8C544-7FBC-4BB7-80B4-9BCD61273965}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DD8C544-7FBC-4BB7-80B4-9BCD61273965}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DD8C544-7FBC-4BB7-80B4-9BCD61273965}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EE857E5-BE2D-448F-84DF-32318E364B5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EE857E5-BE2D-448F-84DF-32318E364B5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EE857E5-BE2D-448F-84DF-32318E364B5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EE857E5-BE2D-448F-84DF-32318E364B5D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8592E19E-8D32-413E-9DC9-AD5668D1C9D7}
+	EndGlobalSection
+EndGlobal
