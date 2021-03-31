@@ -6,7 +6,6 @@ using System.Xml;
 
 namespace Gizza.Data.Net.Sms.Providers
 {
-    // iletimerkezi.com için tasarlandı
     internal class IletiMerkezi
     {
         // Adresler
@@ -26,7 +25,7 @@ namespace Gizza.Data.Net.Sms.Providers
 
         // Durum Kodları
         public int StatusCode = 0;
-        public string StatusDesc = "";
+        public string StatusDescription = "";
 
         // Bakiye
         public int BalanceCount = 0;
@@ -45,7 +44,7 @@ namespace Gizza.Data.Net.Sms.Providers
             this.Originator = originator;
         }
 
-        public bool SendSms(string[] Recipents, string SmsText)
+        public bool SendSms(string[] recipients, string SmsText)
         {
             try
             {
@@ -56,7 +55,7 @@ namespace Gizza.Data.Net.Sms.Providers
                 // SendSmsViaGet(this.SmsBody, Recipents);
 
                 // Send Via Post
-                SendSmsViaPost(Recipents, this.SmsBody);
+                SendSmsViaPost(recipients, this.SmsBody);
 
                 // Return
                 return this.StatusCode == 200;
@@ -67,24 +66,24 @@ namespace Gizza.Data.Net.Sms.Providers
             }
         }
 
-        private void SendSmsViaGet(string[] Recipents, string SmsText)
+        private void SendSmsViaGet(string[] recipients, string SmsText)
         {
             // Reset Status
             this.StatusCode = 0;
-            this.SetStatus();
+            this.SetStatusDescription();
 
             // Basic GET Request
-            this.DoRequest(UrlSmsGet, "GET", Uri.EscapeUriString("username=" + Username + "&password=" + Password + "&text=" + SmsText + "&receipents=" + String.Join(",", Recipents) + "&sender=" + this.Originator));
+            this.DoRequest(UrlSmsGet, "GET", Uri.EscapeUriString("username=" + Username + "&password=" + Password + "&text=" + SmsText + "&receipents=" + String.Join(",", recipients) + "&sender=" + this.Originator));
 
             // Console
             Console.WriteLine(this.ServerResponse);
         }
 
-        private void SendSmsViaPost(string[] Recipents, string SmsText)
+        private void SendSmsViaPost(string[] recipients, string SmsText)
         {
             // Reset Status
             this.StatusCode = 0;
-            this.SetStatus();
+            this.SetStatusDescription();
 
             // Prepare POST Request Xml
             string xmlRequest = "";
@@ -99,8 +98,8 @@ namespace Gizza.Data.Net.Sms.Providers
             xmlRequest += "    <message>";
             xmlRequest += "      <text><![CDATA[" + SmsText + "]]></text>";
             xmlRequest += "      <receipents>";
-            for (int i = 0; i < Recipents.Length; i++)
-                xmlRequest += "        <number>" + Recipents[i] + "</number>";
+            for (int i = 0; i < recipients.Length; i++)
+                xmlRequest += "        <number>" + recipients[i] + "</number>";
             xmlRequest += "      </receipents>";
             xmlRequest += "    </message>";
             xmlRequest += "  </order>";
@@ -116,7 +115,7 @@ namespace Gizza.Data.Net.Sms.Providers
             foreach (XmlNode node in nodeList)
             {
                 this.StatusCode = int.Parse(node.SelectSingleNode("code").InnerText);
-                this.StatusDesc = node.SelectSingleNode("message").InnerText;
+                this.StatusDescription = node.SelectSingleNode("message").InnerText;
             }
 
             if (this.StatusCode == 200)
@@ -136,7 +135,7 @@ namespace Gizza.Data.Net.Sms.Providers
         {
             // Reset Status
             this.StatusCode = 0;
-            this.SetStatus();
+            this.SetStatusDescription();
 
             // Prepare POST Request Xml
             string xmlRequest = "";
@@ -157,7 +156,7 @@ namespace Gizza.Data.Net.Sms.Providers
             foreach (XmlNode node in nodeList)
             {
                 this.StatusCode = int.Parse(node.SelectSingleNode("code").InnerText);
-                this.StatusDesc = node.SelectSingleNode("message").InnerText;
+                this.StatusDescription = node.SelectSingleNode("message").InnerText;
             }
         }
 
@@ -165,7 +164,7 @@ namespace Gizza.Data.Net.Sms.Providers
         {
             // Reset Status
             this.StatusCode = 0;
-            this.SetStatus();
+            this.SetStatusDescription();
 
             // Prepare POST Request Xml
             string xmlRequest = "";
@@ -186,7 +185,7 @@ namespace Gizza.Data.Net.Sms.Providers
             foreach (XmlNode node in nodeList)
             {
                 this.StatusCode = int.Parse(node.SelectSingleNode("code").InnerText);
-                this.StatusDesc = node.SelectSingleNode("message").InnerText;
+                this.StatusDescription = node.SelectSingleNode("message").InnerText;
             }
 
             if (this.StatusCode == 200)
@@ -204,7 +203,7 @@ namespace Gizza.Data.Net.Sms.Providers
         {
             // Reset Status
             this.StatusCode = 0;
-            this.SetStatus();
+            this.SetStatusDescription();
 
             // Prepare POST Request Xml
             string xmlRequest = "";
@@ -230,7 +229,7 @@ namespace Gizza.Data.Net.Sms.Providers
             foreach (XmlNode node in nodeList)
             {
                 this.StatusCode = int.Parse(node.SelectSingleNode("code").InnerText);
-                this.StatusDesc = node.SelectSingleNode("message").InnerText;
+                this.StatusDescription = node.SelectSingleNode("message").InnerText;
             }
 
 
@@ -243,78 +242,78 @@ namespace Gizza.Data.Net.Sms.Providers
             Console.WriteLine(this.ServerResponse);
         }
 
-        private void SetStatus()
+        private void SetStatusDescription()
         {
             switch (this.StatusCode)
             {
                 case 0:
-                    this.StatusDesc = "";
+                    this.StatusDescription = "";
                     break;
                 case 2:
-                    this.StatusDesc = "";
+                    this.StatusDescription = "";
                     break;
                 case 110:
-                    this.StatusDesc = "Mesaj gönderiliyor";
+                    this.StatusDescription = "Mesaj gönderiliyor";
                     break;
                 case 111:
-                    this.StatusDesc = "Mesaj gönderildi";
+                    this.StatusDescription = "Mesaj gönderildi";
                     break;
                 case 112:
-                    this.StatusDesc = "Mesaj gönderilemedi";
+                    this.StatusDescription = "Mesaj gönderilemedi";
                     break;
                 case 113:
-                    this.StatusDesc = "Siparişin gönderimi devam ediyor";
+                    this.StatusDescription = "Siparişin gönderimi devam ediyor";
                     break;
                 case 114:
-                    this.StatusDesc = "Siparişin gönderimi tamamlandı";
+                    this.StatusDescription = "Siparişin gönderimi tamamlandı";
                     break;
                 case 115:
-                    this.StatusDesc = "Sipariş gönderilemedi";
+                    this.StatusDescription = "Sipariş gönderilemedi";
                     break;
                 case 200:
-                    this.StatusDesc = "İşlem başarılı";
+                    this.StatusDescription = "İşlem başarılı";
                     break;
                 case 400:
-                    this.StatusDesc = "İstek çözümlenemedi";
+                    this.StatusDescription = "İstek çözümlenemedi";
                     break;
                 case 401:
-                    this.StatusDesc = "Üyelik bilgileri hatalı";
+                    this.StatusDescription = "Üyelik bilgileri hatalı";
                     break;
                 case 402:
-                    this.StatusDesc = "Bakiye yetersiz";
+                    this.StatusDescription = "Bakiye yetersiz";
                     break;
                 case 404:
-                    this.StatusDesc = "API istek yapılan yönteme sahip değil ";
+                    this.StatusDescription = "API istek yapılan yönteme sahip değil ";
                     break;
                 case 450:
-                    this.StatusDesc = "Gönderilen başlık kullanıma uygun değil";
+                    this.StatusDescription = "Gönderilen başlık kullanıma uygun değil";
                     break;
                 case 451:
-                    this.StatusDesc = "Tekrar eden sipariş";
+                    this.StatusDescription = "Tekrar eden sipariş";
                     break;
                 case 452:
-                    this.StatusDesc = "Mesaj alıcıları hatalı";
+                    this.StatusDescription = "Mesaj alıcıları hatalı";
                     break;
                 case 453:
-                    this.StatusDesc = "Sipariş boyutu aşıldı";
+                    this.StatusDescription = "Sipariş boyutu aşıldı";
                     break;
                 case 454:
-                    this.StatusDesc = "Mesaj metni boş";
+                    this.StatusDescription = "Mesaj metni boş";
                     break;
                 case 455:
-                    this.StatusDesc = "Sipariş bulunamadı";
+                    this.StatusDescription = "Sipariş bulunamadı";
                     break;
                 case 456:
-                    this.StatusDesc = "Sipariş gönderim tarihi henüz gelmedi";
+                    this.StatusDescription = "Sipariş gönderim tarihi henüz gelmedi";
                     break;
                 case 457:
-                    this.StatusDesc = "Mesaj gönderim tarihinin formatı hatalı";
+                    this.StatusDescription = "Mesaj gönderim tarihinin formatı hatalı";
                     break;
                 case 503:
-                    this.StatusDesc = "Sunucu geçici olarak servis dışı";
+                    this.StatusDescription = "Sunucu geçici olarak servis dışı";
                     break;
                 default:
-                    this.StatusDesc = "";
+                    this.StatusDescription = "";
                     break;
             }
         }
@@ -347,7 +346,7 @@ namespace Gizza.Data.Net.Sms.Providers
                 }
                 finally
                 {
-                    SetStatus();
+                    SetStatusDescription();
                 }
             }
             else if (requestMethod == "POST")
@@ -409,31 +408,11 @@ namespace Gizza.Data.Net.Sms.Providers
                 }
                 finally
                 {
-                    SetStatus();
+                    SetStatusDescription();
                 }
             }
 
         }
 
-    }
-
-    public static partial class Extensions
-    {
-        public static string Between(this string @this, string firstString, string lastString, bool includeFirst = false, bool includeLast = false)
-        {
-            int posA = @this.IndexOf(firstString) + firstString.Length;
-            if (posA > @this.Length) return "";
-            string temp = @this.Substring(posA);
-            int posB = posA + temp.IndexOf(lastString);
-
-            if (posA == -1) return "";
-            if (posB == -1) return "";
-            if (posA >= posB) return "";
-
-            string FinalString = @this.Substring(posA, posB - posA);
-            if (includeFirst) FinalString = firstString + FinalString;
-            if (includeLast) FinalString += lastString;
-            return FinalString;
-        }
     }
 }

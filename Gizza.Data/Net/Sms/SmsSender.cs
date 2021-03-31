@@ -2,34 +2,43 @@
 
 namespace Gizza.Data.Net.Sms
 {
-    // iletimerkezi.com için tasarlandı
+    public enum SmsProvider
+    {
+        IletiMerkezi,
+        NetGsm
+    }
+
+    public enum SmsType
+    {
+        SMS,
+        OTP,
+    }
+
     public class SmsSender
     {
-        // Enumerations
-        public enum SmsProvider { IletiMerkezi }
+        // Private Properties
+        private IletiMerkezi IletiMerkezi { get;  set; }
+        private NetGsm NetGsm { get;  set; }
 
         // Public Properties
-        public SmsProvider Provider { get; }
-        internal IletiMerkezi IletiMerkezi { get; set; }
-
-        // Ayarlar
+        public SmsProvider Provider { get; private set; }
         public string Username
         {
             get
             {
                 if (this.Provider == SmsProvider.IletiMerkezi)
-                {
                     return this.IletiMerkezi.Username;
-                }
+                if (this.Provider == SmsProvider.NetGsm)
+                    return this.NetGsm.Username;
 
                 return string.Empty;
             }
             set
             {
                 if (this.Provider == SmsProvider.IletiMerkezi)
-                {
                     this.IletiMerkezi.Username = value;
-                }
+                if (this.Provider == SmsProvider.NetGsm)
+                    this.NetGsm.Username = value;
             }
         }
         public string Password
@@ -37,18 +46,18 @@ namespace Gizza.Data.Net.Sms
             get
             {
                 if (this.Provider == SmsProvider.IletiMerkezi)
-                {
                     return this.IletiMerkezi.Password;
-                }
+                if (this.Provider == SmsProvider.NetGsm)
+                    return this.NetGsm.Password;
 
                 return string.Empty;
             }
             set
             {
                 if (this.Provider == SmsProvider.IletiMerkezi)
-                {
                     this.IletiMerkezi.Password = value;
-                }
+                if (this.Provider == SmsProvider.NetGsm)
+                    this.NetGsm.Password = value;
             }
         }
         public string Originator
@@ -56,166 +65,157 @@ namespace Gizza.Data.Net.Sms
             get
             {
                 if (this.Provider == SmsProvider.IletiMerkezi)
-                {
                     return this.IletiMerkezi.Originator;
-                }
+                if (this.Provider == SmsProvider.NetGsm)
+                    return this.NetGsm.Originator;
 
                 return string.Empty;
             }
             set
             {
                 if (this.Provider == SmsProvider.IletiMerkezi)
-                {
                     this.IletiMerkezi.Originator = value;
-                }
+                if (this.Provider == SmsProvider.NetGsm)
+                    this.NetGsm.Originator = value;
             }
         }
-
-        // Sunucu Cevabı
         public string ServerResponse
         {
             get
             {
                 if (this.Provider == SmsProvider.IletiMerkezi)
-                {
                     return this.IletiMerkezi.ServerResponse;
-                }
+                if (this.Provider == SmsProvider.NetGsm)
+                    return this.NetGsm.ServerResponse;
 
                 return string.Empty;
             }
         }
-
-        // Durum Kodları
         public int StatusCode
         {
             get
             {
                 if (this.Provider == SmsProvider.IletiMerkezi)
-                {
                     return this.IletiMerkezi.StatusCode;
-                }
+                if (this.Provider == SmsProvider.NetGsm)
+                    return this.NetGsm.StatusCode;
 
                 return 0;
             }
         }
-        public string StatusDesc
+        public string StatusDescription
         {
             get
             {
                 if (this.Provider == SmsProvider.IletiMerkezi)
-                {
-                    return this.IletiMerkezi.StatusDesc;
-                }
+                    return this.IletiMerkezi.StatusDescription;
+                if (this.Provider == SmsProvider.NetGsm)
+                    return this.NetGsm.StatusDescription;
 
                 return string.Empty;
             }
         }
-
-        // Bakiye
-        public int BalanceCount
-        {
-            get
-            {
-                if (this.Provider == SmsProvider.IletiMerkezi)
-                {
-                    return this.IletiMerkezi.BalanceCount;
-                }
-
-                return 0;
-            }
-        }
-        public double BalanceAmount
-        {
-            get
-            {
-                if (this.Provider == SmsProvider.IletiMerkezi)
-                {
-                    return this.IletiMerkezi.BalanceAmount;
-                }
-
-                return 0;
-            }
-        }
-
-        // Order
-        public int OrderId
-        {
-            get
-            {
-                if (this.Provider == SmsProvider.IletiMerkezi)
-                {
-                    return this.IletiMerkezi.OrderId;
-                }
-
-                return 0;
-            }
-        }
-
-        // Sms
         public string SmsBody
         {
             get
             {
                 if (this.Provider == SmsProvider.IletiMerkezi)
-                {
                     return this.IletiMerkezi.SmsBody;
-                }
+                if (this.Provider == SmsProvider.NetGsm)
+                    return this.NetGsm.SmsBody;
 
                 return string.Empty;
             }
             set
             {
                 if (this.Provider == SmsProvider.IletiMerkezi)
-                {
                     this.IletiMerkezi.SmsBody = value;
-                }
+                if (this.Provider == SmsProvider.NetGsm)
+                    this.NetGsm.SmsBody = value;
             }
         }
 
-        public SmsSender() : this(SmsProvider.IletiMerkezi)
+        public SmsSender(SmsProvider provider): this(provider,"","","")
         {
         }
-
-        public SmsSender(SmsProvider provider)
+        public SmsSender(SmsProvider provider, string username, string password, string originator)
         {
             this.Provider = provider;
+            this.Username = username;
+            this.Password = password;
+            this.Originator = originator;
+
             this.IletiMerkezi = new IletiMerkezi(this.Username, this.Password, this.Originator);
+            this.NetGsm = new NetGsm(this.Username, this.Password, this.Originator);
         }
 
-        public bool SendSms(string[] Recipents, string SmsText)
+        public bool SendOTP(string recipient, string sms)
         {
             if (this.Provider == SmsProvider.IletiMerkezi)
+                return this.IletiMerkezi.SendSms(new string[] { recipient }, sms);
+            if (this.Provider == SmsProvider.NetGsm)
+                return this.NetGsm.SendOTP(recipient, sms);
+
+            return false;
+        }
+        public bool SendOTP(string[] recipients, string sms)
+        {
+            if (this.Provider == SmsProvider.IletiMerkezi)
+                return this.IletiMerkezi.SendSms(recipients, sms);
+            if (this.Provider == SmsProvider.NetGsm)
             {
-                return this.IletiMerkezi.SendSms(Recipents, SmsText);
+                var res = false;
+                foreach(var recipient in recipients)
+                    res = res & this.NetGsm.SendOTP(recipient, sms);
+
+                return res;
             }
 
             return false;
         }
-
-        public void CancelOrder(int orderId)
+        public bool SendSms(string recipient, string sms)
         {
             if (this.Provider == SmsProvider.IletiMerkezi)
-            {
-                this.IletiMerkezi.CancelOrder(orderId);
-            }
-        }
+                return this.IletiMerkezi.SendSms(new string[] { recipient }, sms);
+            if (this.Provider == SmsProvider.NetGsm)
+                return this.NetGsm.SendSms(recipient, sms);
 
-        public void GetBalance()
+            return false;
+        }
+        public bool SendSms(string[] recipients, string sms)
         {
             if (this.Provider == SmsProvider.IletiMerkezi)
+                return this.IletiMerkezi.SendSms(recipients, sms);
+            if (this.Provider == SmsProvider.NetGsm)
             {
-                this.IletiMerkezi.GetBalance();
-            }
-        }
+                var res = false;
+                foreach(var recipient in recipients)
+                    res = res & this.NetGsm.SendSms(recipient, sms);
 
-        public void GetReport(int orderId, int pageNumber = 1, int rowCount = 1000)
+                return res;
+            }
+
+            return false;
+        }
+    }
+
+    public static class StringExtensions
+    {
+        public static string Between(this string @this, string firstString, string lastString, bool includeFirst = false, bool includeLast = false)
         {
-            if (this.Provider == SmsProvider.IletiMerkezi)
-            {
-                this.IletiMerkezi.GetReport(orderId, pageNumber, rowCount);
-            }
+            int posA = @this.IndexOf(firstString) + firstString.Length;
+            if (posA > @this.Length) return "";
+            string temp = @this.Substring(posA);
+            int posB = posA + temp.IndexOf(lastString);
+
+            if (posA == -1) return "";
+            if (posB == -1) return "";
+            if (posA >= posB) return "";
+
+            string FinalString = @this.Substring(posA, posB - posA);
+            if (includeFirst) FinalString = firstString + FinalString;
+            if (includeLast) FinalString += lastString;
+            return FinalString;
         }
-
-
     }
 }
