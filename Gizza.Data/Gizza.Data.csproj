@@ -7,10 +7,10 @@
   <PropertyGroup>
     <PackageId>Gizza.Data</PackageId>
     <Authors>Burak Öner</Authors>
-    <Version>1.0.1</Version>
-    <FileVersion>1.0.1.0</FileVersion>
-    <PackageVersion>1.0.1</PackageVersion>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <Version>1.0.2</Version>
+    <FileVersion>1.0.2.0</FileVersion>
+    <PackageVersion>1.0.2</PackageVersion>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
     <Description>Data, Database, IO, Net, Security, Validation libraries for Gizza Projects</Description>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageTags>Data;Database;IO;Net;Security;Validation;Library;Gizza</PackageTags>
@@ -18,7 +18,7 @@
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReleaseNotes>
-      Version 1.0.1 - 31 Mar 2021
+      Version 1.0.2 - 31 Mar 2021
       - Added NetGSM SMS Support
     </PackageReleaseNotes>
     <PackageIcon>icon.png</PackageIcon>

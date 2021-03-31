@@ -4,14 +4,8 @@ namespace Gizza.Data.Net.Sms
 {
     public enum SmsProvider
     {
-        IletiMerkezi,
-        NetGsm
-    }
-
-    public enum SmsType
-    {
-        SMS,
-        OTP,
+        IletiMerkezi = 1,
+        NetGsm = 2,
     }
 
     public class SmsSender
