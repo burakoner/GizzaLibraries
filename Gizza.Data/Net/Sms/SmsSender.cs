@@ -134,13 +134,13 @@ namespace Gizza.Data.Net.Sms
         }
         public SmsSender(SmsProvider provider, string username, string password, string originator)
         {
+            this.IletiMerkezi = new IletiMerkezi(username, password, originator);
+            this.NetGsm = new NetGsm(username, password, originator);
+
             this.Provider = provider;
             this.Username = username;
             this.Password = password;
             this.Originator = originator;
-
-            this.IletiMerkezi = new IletiMerkezi(this.Username, this.Password, this.Originator);
-            this.NetGsm = new NetGsm(this.Username, this.Password, this.Originator);
         }
 
         public bool SendOTP(string recipient, string sms)
