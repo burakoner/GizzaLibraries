@@ -169,9 +169,15 @@ namespace Gizza.Data.Net.Sms.Providers
             // Do POST Request
             this.DoRequest(UrlOtpPost, "POST", xmlRequest);
 
-            // Parse Response
-            this.StatusCode = Convert.ToInt32(this.ServerResponse.Trim(' ').FirstOrDefault());
+            // Parse Xml Response
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(this.ServerResponse);
+            XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes("main/code");
+            foreach (XmlNode node in nodeList)
+            {
+                this.StatusCode = int.Parse(node.InnerText);
             this.SetStatusDescription();
+            }
 
             // Console
             Console.WriteLine(this.ServerResponse);
