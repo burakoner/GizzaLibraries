@@ -65,12 +65,12 @@ namespace Gizza.Data.Security.OTP.GoogleAuthenticator
 
             accountTitleNoSpaces = accountTitleNoSpaces.Replace(" ", "");
 
-            SetupCode sC = new SetupCode();
-            sC.Account = accountTitleNoSpaces;
-            sC.AccountSecretKey = accountSecretKey;
+            SetupCode sc = new SetupCode();
+            sc.Account = accountTitleNoSpaces;
+            sc.AccountSecretKey = accountSecretKey;
 
             string encodedSecretKey = EncodeAccountSecretKey(accountSecretKey);
-            sC.ManualEntryKey = encodedSecretKey;
+            sc.ManualEntryKey = encodedSecretKey;
 
             string provisionUrl = null;
 
@@ -86,9 +86,9 @@ namespace Gizza.Data.Security.OTP.GoogleAuthenticator
             string protocol = useHttps ? "https" : "http";
             string url = String.Format("{0}://chart.googleapis.com/chart?cht=qr&chs={1}x{2}&chl={3}", protocol, qrCodeWidth, qrCodeHeight, provisionUrl);
 
-            sC.QRCodeImageUrl = url;
+            sc.QRCodeImageUrl = url;
 
-            return sC;
+            return sc;
         }
 
         private string UrlEncode(string value)
