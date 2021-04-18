@@ -7,10 +7,10 @@
   <PropertyGroup>
     <PackageId>Gizza.Extensions</PackageId>
     <Authors>Burak Öner</Authors>
-    <Version>1.0.1</Version>
-    <FileVersion>1.0.1.0</FileVersion>
-    <PackageVersion>1.0.1</PackageVersion>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <Version>1.0.2</Version>
+    <FileVersion>1.0.2.0</FileVersion>
+    <PackageVersion>1.0.2</PackageVersion>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
     <Description>Extensions for Gizza Projects</Description>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageTags>Extensions;Library;Gizza</PackageTags>
@@ -18,7 +18,7 @@
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReleaseNotes>
-      Version 1.0.1 - 21 Jan 2021
+      Version 1.0.2 - 21 Jan 2021
       - Added tones of extensions
     </PackageReleaseNotes>
     <PackageIcon>icon.png</PackageIcon>

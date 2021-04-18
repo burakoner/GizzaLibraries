@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Gizza.Extensions
 {
@@ -11,6 +12,18 @@ namespace Gizza.Extensions
         /// <param name="values">A variable-length parameters list containing values.</param>
         /// <returns>true if it contains any values, otherwise false.</returns>
         public static bool ContainsAny(this string @this, params string[] values)
+        {
+            foreach (string value in values)
+            {
+                if (@this.IndexOf(value) != -1)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool ContainsAny(this string @this, IEnumerable<string> values)
         {
             foreach (string value in values)
             {
