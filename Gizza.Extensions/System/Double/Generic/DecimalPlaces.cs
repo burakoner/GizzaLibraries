@@ -24,7 +24,7 @@ namespace Gizza.Extensions
         /// <para>Console.WriteLine(MathDecimals.GetDecimalPlaces((decimal)0.01f));        // 2</para>
         /// <para>Console.WriteLine(MathDecimals.GetDecimalPlaces((decimal)-0.01f));       // 2</para>
         /// </returns>
-        public static int DecimalPlaces(this decimal @this)
+        public static int DecimalPlaces(this double @this)
         {
             @this = Math.Abs(@this); //make sure it is positive.
             @this -= (int)@this;     //remove the integer part of the number.
@@ -37,5 +37,6 @@ namespace Gizza.Extensions
             }
             return decimalPlaces;
         }
+
     }
 }

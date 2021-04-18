@@ -1,3 +1,5 @@
+using System;
+
 namespace Gizza.Extensions
 {
     public static partial class Extensions
@@ -15,7 +17,7 @@ namespace Gizza.Extensions
 
             string FinalString = @this.Substring(posA, posB - posA);
             if (includeFirst) FinalString = firstString + FinalString;
-            if (includeLast) FinalString += lastString;
+            if (includeLast) FinalString = FinalString + lastString;
             return FinalString;
         }
     }
