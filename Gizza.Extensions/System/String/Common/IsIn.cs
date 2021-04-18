@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Gizza.Extensions
 {
@@ -13,6 +15,11 @@ namespace Gizza.Extensions
         public static bool In(this string @this, params string[] values)
         {
             return Array.IndexOf(values, @this) != -1;
+        }
+
+        public static bool In(this string @this, IEnumerable<string> values)
+        {
+            return Array.IndexOf(values.ToArray(), @this) != -1;
         }
     }
 }
